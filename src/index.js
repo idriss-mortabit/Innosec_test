@@ -47,6 +47,176 @@ class Home extends Component {
     }
 }
 class AddBill extends Component {
+    constructor(props) {
+        super(props);
+        this.state = ({value1: ''}) 
+        this.state = ({value2: ''})
+        this.state = ({value3: ''}) 
+        this.state = ({value4: ''}) 
+        this.state = ({value5: ''})
+        this.state = ({value6: ''}) 
+        this.state = ({value7: ''}) 
+        this.state = {button: 'disabled'};
+    
+        this.handleChange1 = this.handleChange1.bind(this);
+        this.handleChange2 = this.handleChange2.bind(this);
+        this.handleChange3 = this.handleChange3.bind(this);
+        this.handleChange4 = this.handleChange4.bind(this);
+        this.handleChange5 = this.handleChange5.bind(this);
+        this.handleChange6 = this.handleChange6.bind(this);
+        this.handleChange7 = this.handleChange7.bind(this);
+    
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
+      handleChange3(event){
+        this.setState({value3: event.target.value},function () {
+          if (this.state.value1 === undefined || this.state.value2 === undefined || this.state.value3 === undefined){
+            this.setState({button: 'disabled'})
+          }
+          else{
+            if (this.state.value1 !== "" && this.state.value2 !== "" && this.state.value3 !== ""){
+              this.setState({button: ''})
+            }
+            else{
+              this.setState({button: 'disabled'})
+            }
+          }
+      })
+      }
+      handleChange2(event){
+        this.setState({value2: event.target.value},function () {
+          if (this.state.value1 === undefined || this.state.value2 === undefined || this.state.value3 === undefined){
+            this.setState({button: 'disabled'})
+          }
+          else{
+            if (this.state.value1 !== "" && this.state.value2 !== "" && this.state.value3 !== ""){
+              this.setState({button: ''})
+            }
+            else{
+              this.setState({button: 'disabled'})
+            }
+          }
+      }) 
+      }
+      handleChange1(event){
+        this.setState({value1: event.target.value},function () {
+          if (this.state.value1 === undefined || this.state.value2 === undefined || this.state.value3 === undefined){
+            this.setState({button: 'disabled'})
+          }
+          else{
+            if (this.state.value1 !== "" && this.state.value2 !== "" && this.state.value3 !== ""){
+              this.setState({button: ''})
+            }
+            else{
+              this.setState({button: 'disabled'})
+            }
+          }
+      })
+      }
+      handleChange4(event){
+        this.setState({value4: event.target.value},function () {
+          if (this.state.value1 === undefined || this.state.value2 === undefined || this.state.value3 === undefined){
+            this.setState({button: 'disabled'})
+          }
+          else{
+            if (this.state.value1 !== "" && this.state.value2 !== "" && this.state.value3 !== ""){
+              this.setState({button: ''})
+            }
+            else{
+              this.setState({button: 'disabled'})
+            }
+          }
+      })
+      }
+      handleChange5(event){
+        this.setState({value5: event.target.value},function () {
+          if (this.state.value1 === undefined || this.state.value2 === undefined || this.state.value3 === undefined){
+            this.setState({button: 'disabled'})
+          }
+          else{
+            if (this.state.value1 !== "" && this.state.value2 !== "" && this.state.value3 !== ""){
+              this.setState({button: ''})
+            }
+            else{
+              this.setState({button: 'disabled'})
+            }
+          }
+      }) 
+      }
+      handleChange6(event){
+        this.setState({value6: event.target.value},function () {
+          if (this.state.value1 === undefined || this.state.value2 === undefined || this.state.value3 === undefined){
+            this.setState({button: 'disabled'})
+          }
+          else{
+            if (this.state.value1 !== "" && this.state.value2 !== "" && this.state.value3 !== ""){
+              this.setState({button: ''})
+            }
+            else{
+              this.setState({button: 'disabled'})
+            }
+          }
+      })
+      }
+      handleChange7(event){
+        this.setState({value7: event.target.value},function () {
+          if (this.state.value1 === undefined || this.state.value2 === undefined || this.state.value3 === undefined){
+            this.setState({button: 'disabled'})
+          }
+          else{
+            if (this.state.value1 !== "" && this.state.value2 !== "" && this.state.value3 !== ""){
+              this.setState({button: ''})
+            }
+            else{
+              this.setState({button: 'disabled'})
+            }
+          }
+      })
+          }
+    
+      handleSubmit(event) {
+        var client = {
+          first_name: this.state.value1.trim(),
+          last_name: this.state.value2.trim(),
+          email: this.state.value4,
+          phone: this.state.value3.trim(),
+          address: this.state.value5,
+          city: this.state.value6,
+          state: this.state.value7
+        }
+          var products = [] 
+          for(var i=0; i<this.props.products.length ; i=i+1) {
+            products.push({
+              product_id: this.props.products[i].id,
+              quantity : this.props.products[i].quantity
+            })
+          }
+          var data =[{costumer:client, cart:products, total:this.props.total}]
+          console.log(data)
+          function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+          var request = new XMLHttpRequest();
+          request.open('POST', '/api/get/orders', true);
+          request.setRequestHeader('Content-Type', 'application/json');
+          request.setRequestHeader('X-CSRFToken', csrftoken);
+          request.send(JSON.stringify(data));
+          window.location.href="/shop/products/checkout/ordersuccess"
+          event.preventDefault();
+      } 
     render(){
         return(
             <div class="container">
