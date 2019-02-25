@@ -6,8 +6,6 @@
     "jquery": "^3.3.1",
     "mdbreact": "^4.8.6",
     "react": "^16.6.3",
-    "react-bootstrap": "^0.32.4",
-    "react-burger-menu": "^2.6.5",
     "react-dom": "^16.6.3",
     "react-redux": "^6.0.0",
     "react-responsive": "^6.1.1",
