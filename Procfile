@@ -1,1 +1,1 @@
-web: gunicorn extneg.wsgi --log-file -
+web: gunicorn innoscripta_test.wsgi --log-file -
