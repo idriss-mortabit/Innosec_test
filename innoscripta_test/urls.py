@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from innoscripta_test.views import index_view
-
+from innoscripta_test.api.getbills import GetBill
+from innoscripta_test.api.postdata import PostData
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/get/products', Products_Api.as_view()),
-    # path('api/get/orders', GetOrder),
+    path('api/get/getbill', PostData.as_view()),
+    path('api/get/postdata', GetBill),
     re_path('',index_view, name='index_view'),
 ]
