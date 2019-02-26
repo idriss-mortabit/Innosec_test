@@ -6,10 +6,11 @@ import './index.css';
 import  { Redirect } from 'react-router-dom'
 import jQuery from 'jquery';
 import request from 'superagent'
+import axios from 'axios';
 
-//import Terms from './term_of_use/terms';
 function Getdata(){
   console.log("onload...")
+  var data
       request
           .get('/api/get/postdata')
           .query({ query: 'Manny' })
@@ -22,7 +23,7 @@ function Getdata(){
               console.log("success")
               const file =  JSON.parse(resp.text)
               console.log(file)
-              const data = file.map((line) =>
+              data = file.map((line) =>
                       <tr>
                           <td scope="row">{line.id}</td>
                           <td>{line.date}</td>
@@ -30,17 +31,12 @@ function Getdata(){
                           <td>{line.amount}</td>
                       </tr>
               );
-              return (
-                <div>
-                  {data}
-                </div>
-            )
           } 
           else {
               console.log("failed")
               console.log(err)
               console.log("end")
-              const data = (
+              data = (
                 <tr>
                           <td scope="row">error</td>
                           <td>error</td>
@@ -48,13 +44,13 @@ function Getdata(){
                           <td>error</td>
                 </tr>
               );
-              return (
-                  <div>
-                    {data}
-                  </div>
-              )
           }
           })
+          return(
+            <div>
+                    {data}
+            </div>
+          )
 }
 class Home extends Component {
     render(){
@@ -67,10 +63,25 @@ class Home extends Component {
                         <th scope="col">date</th>
                         <th scope="col">company</th>
                         <th scope="col">amount</th>
+                        <th scope="col">action</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <Getdata />
+                    {axios.get("/api/get/postdata").then(response =>{
+                      console.log("My api response", response.data)
+                      response.data.map((line) =>
+                      <tr>
+                          <td scope="row">{line.id}</td>
+                          <td>{line.date}</td>
+                          <td>{line.company}</td>
+                          <td>{line.amount}</td>
+                      </tr>
+                         );
+                       })
+                      .catch(err=> {
+                        console.log("FETCH_DATA_ERROR", err)
+
+                        })}
                     </tbody>
                     </table>          
             </div>

@@ -21,7 +21,7 @@ from innoscripta_test.api.postdata import PostData
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/get/getbill', PostData.as_view()),
-    path('api/get/postdata', GetBill),
+    path('api/get/getbill', GetBill),
+    path('api/get/postdata', PostData.as_view()),
     re_path('',index_view, name='index_view'),
 ]

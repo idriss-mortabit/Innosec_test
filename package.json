@@ -1,20 +1,15 @@
 {
-  "name": "extneg",
+  "name": "innoscripta",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "jquery": "^3.3.1",
-    "mdbreact": "^4.8.6",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-redux": "^6.0.0",
-    "react-responsive": "^6.1.1",
     "react-router-scroll-top": "^0.1.1",
-    "react-scripts": "2.1.1",
-    "redux": "^4.0.1",
-    "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0",
-    "superagent": "^4.1.0"
+    "superagent": "^4.1.0",
+    "react-scripts": "2.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
