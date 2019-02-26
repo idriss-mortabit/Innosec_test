@@ -4,59 +4,73 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import './styles/bootstrap4/bootstrap.min.css';
 import './index.css';
 import  { Redirect } from 'react-router-dom'
-//import Terms from './term_of_use/terms';
+import jQuery from 'jquery';
+import request from 'superagent'
 
-class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.Getdata = this.Getdata.bind(this);
-  Getdata(){
-    console.log("onload...")
-    var file
-        request
-            .get('/api/get/postdata')
-            .query({ query: 'Manny' })
-            .query({ range: '1..5' })
-            .query({ order: 'desc' })
-            .set('API-Key', 'foobar')
-            .set('Accept', 'application/json')
-            .end((err, resp) => {
-            if (!err) {
-                console.log("success")
-                file =  JSON.parse(resp.text)
-                console.log(file)
-                return file
-            } 
-            else {
-                console.log("failed")
-                console.log(err)
-                console.log("end")
-                return []
-            }
-            })
+//import Terms from './term_of_use/terms';
+function Getdata(){
+  console.log("onload...")
+      request
+          .get('/api/get/postdata')
+          .query({ query: 'Manny' })
+          .query({ range: '1..5' })
+          .query({ order: 'desc' })
+          .set('API-Key', 'foobar')
+          .set('Accept', 'application/json')
+          .end((err, resp) => {
+          if (!err) {
+              console.log("success")
+              const file =  JSON.parse(resp.text)
+              console.log(file)
+              const data = file.map((line) =>
+                      <tr>
+                          <td scope="row">{line.id}</td>
+                          <td>{line.date}</td>
+                          <td>{line.company}</td>
+                          <td>{line.amount}</td>
+                      </tr>
+              );
+              return (
+                <div>
+                  {data}
+                </div>
+            )
+          } 
+          else {
+              console.log("failed")
+              console.log(err)
+              console.log("end")
+              const data = (
+                <tr>
+                          <td scope="row">error</td>
+                          <td>error</td>
+                          <td>error</td>
+                          <td>error</td>
+                </tr>
+              );
+              return (
+                  <div>
+                    {data}
+                  </div>
+              )
+          }
+          })
 }
+class Home extends Component {
     render(){
         return(
             <div >
                 <table className="table">
                     <thead className="thead-dark">
                         <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">id</th>
+                        <th scope="col">date</th>
+                        <th scope="col">company</th>
+                        <th scope="col">amount</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {this.Getdata.map(line =>{
-                      return(
-                            <tr>
-                                <td scope="row">{line.id}</td>
-                                <td>{line.date}</td>
-                                <td>{line.company}</td>
-                                <td>{line.amount}</td>
-                            </tr>
-                    )})}
+                    <Getdata />
                     </tbody>
                     </table>          
             </div>
@@ -474,28 +488,28 @@ class AddBill extends Component {
     
       handleSubmit(event) {
         var data = {
-          id = this.state.value1.trim(),
-          company = this.state.value2,
-          date = this.state.value3,
-          purpose = this.state.value4.trim(),
-          reminder = this.state.value5.trim(),
-          amount = this.state.value6.trim(),
-          billNumber = this.state.value7.trim(),
-          fraction = this.state.value8.trim(), 
-          done = this.state.value9.trim(),
-          status = this.state.value10.trim(),
-          billHtml = this.state.value11.trim(),
-          dueDate = this.state.value12.trim(),
-          Komment = this.state.value13.trim(),
-          halfbills = this.state.value14.trim(),
-          printeddate = this.state.value15.trim(),
-          signeddate = this.state.value16.trim(),
-          Unsicher = this.state.value17.trim(),
-          ignored = this.state.value18.trim(),
-          aktenziech = this.state.value19.trim(),
-          billtext = this.state.value20.trim(),
-          payday = this.state.value21.trim(),
-          csvfilename = this.state.value22.trim(),
+          id : this.state.value1.trim(),
+          company : this.state.value2,
+          date : this.state.value3,
+          purpose : this.state.value4.trim(),
+          reminder : this.state.value5.trim(),
+          amount : this.state.value6.trim(),
+          billNumber : this.state.value7.trim(),
+          fraction : this.state.value8.trim(), 
+          done : this.state.value9.trim(),
+          status : this.state.value10.trim(),
+          billHtml : this.state.value11.trim(),
+          dueDate : this.state.value12.trim(),
+          Komment : this.state.value13.trim(),
+          halfbills : this.state.value14.trim(),
+          printeddate : this.state.value15.trim(),
+          signeddate : this.state.value16.trim(),
+          Unsicher : this.state.value17.trim(),
+          ignored : this.state.value18.trim(),
+          aktenziech : this.state.value19.trim(),
+          billtext : this.state.value20.trim(),
+          payday : this.state.value21.trim(),
+          csvfilename : this.state.value22.trim()
         }
           console.log(data)
           function getCookie(name) {
