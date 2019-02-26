@@ -121,5 +121,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [static_dir]
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder',
+]
+
+SASS_PROCESSOR_INCLUDE_DIRS = [
+   os.path.join(BASE_DIR, 'styles/'),
+   os.path.join(BASE_DIR, '*/'),
+]
+
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'styles/')
 STATIC_ROOT = os.path.join(BASE_DIR, '*/')
