@@ -25,4 +25,4 @@ const postdata = () => {
             }
             })
 }
-export default Importproducts
+export default postdata
