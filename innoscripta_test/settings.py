@@ -135,3 +135,8 @@ SASS_PROCESSOR_INCLUDE_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'styles/')
 STATIC_ROOT = os.path.join(BASE_DIR, '*/')
+
+
+import django_heroku
+django_heroku.settings(locals())
+del DATABASES['default']['OPTIONS']['sslmode']
