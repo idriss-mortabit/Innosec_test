@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	'innoscripta_test.apps.MyAppConfig',
     'django.contrib.humanize',
+    'data',
     'rest_framework',
 
 ]
