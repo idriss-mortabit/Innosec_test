@@ -114,6 +114,32 @@ class AddBill extends Component {
         this.handleChange22 = this.handleChange22.bind(this);
     
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.Getdata = this.Getdata.bind(this);
+      }
+      Getdata(){
+        console.log("onload...")
+        var file
+            request
+                .get('/api/get/postdata')
+                .query({ query: 'Manny' })
+                .query({ range: '1..5' })
+                .query({ order: 'desc' })
+                .set('API-Key', 'foobar')
+                .set('Accept', 'application/json')
+                .end((err, resp) => {
+                if (!err) {
+                    console.log("success")
+                    file =  JSON.parse(resp.text)
+                    console.log(file)
+                    return file
+                } 
+                else {
+                    console.log("failed")
+                    console.log(err)
+                    console.log("end")
+                    return []
+                }
+                })
       }
       handleChange1(event){
         this.setState({value1: event.target.value},function () {
@@ -508,10 +534,13 @@ class AddBill extends Component {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label for="colFormLabelSm" className="col-sm-2 col-form-label col-form-label-sm">Company</label>
-                    <div className="col-sm-10">
-                    <input type="text" className="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm" value={this.state.value2} onChange={this.handleChange2}/>
-                    </div>
+                <label for="colFormLabelSm" className="col-sm-2 col-form-label col-form-label-sm">Select Company</label>
+                <select class="form-control" id="sel1" value={this.state.value2} onChange={this.handleChange2}>
+                      {this.Getdata.map(line =>{
+                          return(
+                            <option value={line.company}>{line.company}</option>
+                        )})}
+                  </select>
                 </div>
                 <div className="form-group row">
                     <label for="colFormLabelSm" className="col-sm-2 col-form-label col-form-label-sm">Date</label>

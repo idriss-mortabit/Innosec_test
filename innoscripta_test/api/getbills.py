@@ -7,9 +7,10 @@ from rest_framework.response import Response
 @api_view(['POST'])
 def GetBill(request):
     data = request.data
+    mycompany = t_firmen.objects.get(name= data["company"])
     My_t_rechnungstermine = t_rechnungstermine(
       id = data["id"],
-      company = data["company"],
+      company = mycompany,
       date = data["date"],
       purpose = data["purpose"],
       reminder = data["reminder"],
