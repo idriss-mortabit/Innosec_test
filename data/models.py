@@ -81,10 +81,18 @@ class t_firmen(models.Model):
     sendtocontact4 = models.SmallIntegerField(max_length=4, default=None)
     contactphone4 = models.CharField(_('contactphone4'), max_length=250, default=None)
     contacthours4 = models.CharField(_('contacthours4'), max_length=255, default=None)
+
+    class Meta:
+        verbose_name = _('t_firmen')
+        verbose_name_plural = _('t_firmens')
+        # ordering = ('url',)
+
+    def __str__(self):
+        return self.name
   
 class t_rechnungstermine(models.Model):
     id = models.IntegerField(max_length=11, unique=True, primary_key=True) 
-    company = models.ForeignKey(t_firmen, verbose_name=_('t_firmen'),default = None, on_delete=models.CASCADE)
+    company = models.ForeignKey(t_firmen, verbose_name=_("t_firmen") ,default = None, on_delete=models.CASCADE)
     date = models.DateField(_("date"), default=datetime.date.today)
     purpose = models.TextField(_('purpose'), default = None)
     reminder = models.IntegerField(max_length=11, default=0) 

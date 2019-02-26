@@ -17,7 +17,7 @@ class PostData(APIView):
         data.append({
               'id' : line.id,
                 'date' : line.date,
-                'company' : line.company,
+                'company' : line.company.name,
                 'amount' : line.amount
             })
     return Response(data)

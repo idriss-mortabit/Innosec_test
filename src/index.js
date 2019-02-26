@@ -5,54 +5,36 @@ import './styles/bootstrap4/bootstrap.min.css';
 import './index.css';
 import  { Redirect } from 'react-router-dom'
 import jQuery from 'jquery';
-import request from 'superagent'
 import axios from 'axios';
 
-function Getdata(){
-  console.log("onload...")
-  var data
-      request
-          .get('/api/get/postdata')
-          .query({ query: 'Manny' })
-          .query({ range: '1..5' })
-          .query({ order: 'desc' })
-          .set('API-Key', 'foobar')
-          .set('Accept', 'application/json')
-          .end((err, resp) => {
-          if (!err) {
-              console.log("success")
-              const file =  JSON.parse(resp.text)
-              console.log(file)
-              data = file.map((line) =>
-                      <tr>
-                          <td scope="row">{line.id}</td>
-                          <td>{line.date}</td>
-                          <td>{line.company}</td>
-                          <td>{line.amount}</td>
-                      </tr>
-              );
-          } 
-          else {
-              console.log("failed")
-              console.log(err)
-              console.log("end")
-              data = (
-                <tr>
-                          <td scope="row">error</td>
-                          <td>error</td>
-                          <td>error</td>
-                          <td>error</td>
-                </tr>
-              );
-          }
-          })
-          return(
-            <div>
-                    {data}
-            </div>
-          )
-}
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = ({mydata: ''}) 
+  }
+  componentDidMount() {
+    this.renderPosts();
+  }
+  renderPosts = async() => {axios.get("api/get/postdata").then(response =>{
+                        console.log("My api response", response.data)
+                        this.setState({
+                          mydata : response.data.map((line) => {
+                          console.log("My api response", line.company)
+                          return (
+                            <tr>
+                                <td scope="row">{line.id}</td>
+                                <td>{line.date}</td>
+                                <td>{line.company}</td>
+                                <td>{line.amount}</td>
+                            </tr>
+                               );
+                             })
+                            })
+                          })
+                           .catch(err=> {
+                             console.log("FETCH_DATA_ERROR", err)
+     
+                             })}
     render(){
         return(
             <div >
@@ -67,21 +49,7 @@ class Home extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                    {axios.get("/api/get/postdata").then(response =>{
-                      console.log("My api response", response.data)
-                      response.data.map((line) =>
-                      <tr>
-                          <td scope="row">{line.id}</td>
-                          <td>{line.date}</td>
-                          <td>{line.company}</td>
-                          <td>{line.amount}</td>
-                      </tr>
-                         );
-                       })
-                      .catch(err=> {
-                        console.log("FETCH_DATA_ERROR", err)
-
-                        })}
+                    {this.state.mydata}
                     </tbody>
                     </table>          
             </div>
@@ -112,7 +80,8 @@ class AddBill extends Component {
         this.state = ({value19: ''})
         this.state = ({value20: ''}) 
         this.state = ({value21: ''})
-        this.state = ({value22: ''})     
+        this.state = ({value22: ''})   
+        this.state = ({mydata: ''})  
         this.state = {button: 'disabled'};
     
         this.handleChange1 = this.handleChange1.bind(this);
@@ -139,32 +108,6 @@ class AddBill extends Component {
         this.handleChange22 = this.handleChange22.bind(this);
     
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.Getdata = this.Getdata.bind(this);
-      }
-      Getdata(){
-        console.log("onload...")
-        var file
-            request
-                .get('/api/get/postdata')
-                .query({ query: 'Manny' })
-                .query({ range: '1..5' })
-                .query({ order: 'desc' })
-                .set('API-Key', 'foobar')
-                .set('Accept', 'application/json')
-                .end((err, resp) => {
-                if (!err) {
-                    console.log("success")
-                    file =  JSON.parse(resp.text)
-                    console.log(file)
-                    return file
-                } 
-                else {
-                    console.log("failed")
-                    console.log(err)
-                    console.log("end")
-                    return []
-                }
-                })
       }
       handleChange1(event){
         this.setState({value1: event.target.value},function () {
@@ -547,6 +490,25 @@ class AddBill extends Component {
           window.location.href="/bill_added"
           event.preventDefault();
       } 
+
+componentDidMount() {
+  this.renderPosts();
+}
+renderPosts = async() => {axios.get("api/get/postdata").then(response =>{
+                      console.log("My api response", response.data)
+                      this.setState({
+                        mydata : response.data.map((line) => {
+                        console.log("My api response", line.company)
+                        return (
+                            <option value={line.company}>{line.company}</option>
+                            );
+                        }
+                      )})
+                          })
+                         .catch(err=> {
+                           console.log("FETCH_DATA_ERROR", err)
+   
+                           })}
     render(){
         return(
             <div className="container">
@@ -561,10 +523,7 @@ class AddBill extends Component {
                 <div className="form-group row">
                 <label for="colFormLabelSm" className="col-sm-2 col-form-label col-form-label-sm">Select Company</label>
                 <select class="form-control" id="sel1" value={this.state.value2} onChange={this.handleChange2}>
-                      {this.Getdata.map(line =>{
-                          return(
-                            <option value={line.company}>{line.company}</option>
-                        )})}
+                           {this.state.mydata}
                   </select>
                 </div>
                 <div className="form-group row">
