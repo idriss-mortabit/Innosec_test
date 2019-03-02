@@ -17,11 +17,12 @@ from django.contrib import admin
 from django.urls import path, re_path
 from innoscripta_test.views import index_view
 from innoscripta_test.api.getbills import GetBill
-from innoscripta_test.api.postdata import PostData
+from innoscripta_test.api.postdata import PostDataBills , PostDataCompanies
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/get/getbill', GetBill),
-    path('api/get/postdata', PostData.as_view()),
+    path('api/get/postdatacompanies', PostDataCompanies.as_view()),
+    path('api/get/postdatabills', PostDataBills.as_view()),
     re_path('',index_view, name='index_view'),
 ]

@@ -3,10 +3,12 @@ from data.models import t_firmen, t_rechnungstermine
 from time import gmtime, strftime
 from random import randint
 from rest_framework.response import Response
+import sys
 
 @api_view(['POST'])
 def GetBill(request):
     data = request.data
+    sys.stderr.write(data)
     mycompany = t_firmen.objects.get(name= data["company"])
     My_t_rechnungstermine = t_rechnungstermine(
       id = data["id"],
@@ -30,7 +32,7 @@ def GetBill(request):
       aktenziech = data["aktenziech"],
       billtext = data["billtext"],
       payday = data["payday"],
-      csvfilename = data["csvfilename"],
+      csvfilename = data["csvfilename"]
     )
     My_t_rechnungstermine.save()
     return Response(data)

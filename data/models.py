@@ -100,7 +100,7 @@ class t_rechnungstermine(models.Model):
     billNumber = models.IntegerField(max_length=11, default=0) 
     fraction= models.FloatField(_('fraction'), max_length=11, default=0)
     done = models.SmallIntegerField(max_length=4, default=0)
-    status = models.IntegerField(max_length=11, default=0),
+    status = models.IntegerField(_('status'), max_length=11, default=0)
     billHtml = models.CharField(_('billHtml'), max_length=1000, default=None)
     dueDate = models.DateField(_("dueDate"), default = None)
     Komment = models.CharField(_('Komment'), max_length=500, default=None)

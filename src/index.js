@@ -15,7 +15,7 @@ class Home extends Component {
   componentDidMount() {
     this.renderPosts();
   }
-  renderPosts = async() => {axios.get("api/get/postdata").then(response =>{
+  renderPosts = async() => {axios.get("api/get/postdatabills").then(response =>{
                         console.log("My api response", response.data)
                         this.setState({
                           mydata : response.data.map((line) => {
@@ -487,14 +487,16 @@ class AddBill extends Component {
           request.setRequestHeader('Content-Type', 'application/json');
           request.setRequestHeader('X-CSRFToken', csrftoken);
           request.send(JSON.stringify(data));
+          console.log(data)
           window.location.href="/bill_added"
+          console.log(data)
           event.preventDefault();
       } 
 
 componentDidMount() {
   this.renderPosts();
 }
-renderPosts = async() => {axios.get("api/get/postdata").then(response =>{
+renderPosts = async() => {axios.get("api/get/postdatacompanies").then(response =>{
                       console.log("My api response", response.data)
                       this.setState({
                         mydata : response.data.map((line) => {
@@ -521,10 +523,11 @@ renderPosts = async() => {axios.get("api/get/postdata").then(response =>{
                     </div>
                 </div>
                 <div className="form-group row">
-                <label for="colFormLabelSm" className="col-sm-2 col-form-label col-form-label-sm">Select Company</label>
+                <label for="colFormLabelSm" className="col-sm-2 col-form-label col-form-label-sm">Company</label>
                 <select class="form-control" id="sel1" value={this.state.value2} onChange={this.handleChange2}>
-                           {this.state.mydata}
-                  </select>
+                  <option value="">-- Please select --</option>
+                  {this.state.mydata}  
+                </select>
                 </div>
                 <div className="form-group row">
                     <label for="colFormLabelSm" className="col-sm-2 col-form-label col-form-label-sm">Date</label>
@@ -583,7 +586,7 @@ renderPosts = async() => {axios.get("api/get/postdata").then(response =>{
                     <div className="form-group row">
                     <label for="colFormLabelSm" className="col-sm-2 col-form-label col-form-label-sm">dueDate</label>
                     <div className="col-sm-10">
-                    <input type="text" className="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm" value={this.state.value12} onChange={this.handleChange12} />
+                    <input type="date" className="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm" value={this.state.value12} onChange={this.handleChange12} />
                     </div>
                     </div>
                     <div className="form-group row">
@@ -601,13 +604,13 @@ renderPosts = async() => {axios.get("api/get/postdata").then(response =>{
                     <div className="form-group row">
                     <label for="colFormLabelSm" className="col-sm-2 col-form-label col-form-label-sm">printeddate</label>
                     <div className="col-sm-10">
-                    <input type="text" className="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm" value={this.state.value15} onChange={this.handleChange15} />
+                    <input type="date" className="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm" value={this.state.value15} onChange={this.handleChange15} />
                     </div>
                     </div>
                     <div className="form-group row">
                     <label for="colFormLabelSm" className="col-sm-2 col-form-label col-form-label-sm">signeddate</label>
                     <div className="col-sm-10">
-                    <input type="text" className="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm" value={this.state.value16} onChange={this.handleChange16} />
+                    <input type="date" className="form-control form-control-sm" id="colFormLabelSm" placeholder="col-form-label-sm" value={this.state.value16} onChange={this.handleChange16} />
                     </div>
                     </div>
                     <div className="form-group row">
@@ -648,7 +651,7 @@ renderPosts = async() => {axios.get("api/get/postdata").then(response =>{
                     </div>
             </form>
             <div className="panel-footer">
-    <button type="submit" disabled={this.state.button} className="btn next-btn" onClick ={this.handleSubmit}>Submit</button>
+    <button type="submit"  className="btn next-btn" onClick ={this.handleSubmit}>Submit</button>
   </div>
             </div>
         );

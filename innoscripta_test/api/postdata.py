@@ -6,7 +6,7 @@ import pickle
 from data import models
 
 
-class PostData(APIView):
+class PostDataBills(APIView):
   """
   A custom endpoint for GET request.
   """
@@ -19,5 +19,19 @@ class PostData(APIView):
                 'date' : line.date,
                 'company' : line.company.name,
                 'amount' : line.amount
+            })
+    return Response(data)
+
+
+class PostDataCompanies(APIView):
+  """
+  A custom endpoint for GET request.
+  """
+  def get(self, request, format=None):
+    table = models.t_firmen.objects.all()
+    data=[]
+    for line in table :
+        data.append({
+                'company' : line.name
             })
     return Response(data)
