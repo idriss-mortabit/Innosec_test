@@ -8,7 +8,6 @@ import sys
 @api_view(['POST'])
 def GetBill(request):
     data = request.data
-    sys.stderr.write(data)
     mycompany = t_firmen.objects.get(name= data["company"])
     My_t_rechnungstermine = t_rechnungstermine(
       id = data["id"],
