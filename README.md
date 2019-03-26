@@ -1,9 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-for the demo you can check http://innoscripta.herokuapp.com/
-the back-end link http://innoscripta.herokuapp.com/admin/
-username : admin
-password : admin
+###### for the demo you can check http://innoscripta-test.herokuapp.com/
+###### the back-end link http://innoscripta-test.herokuapp.com/admin/
+##### username : admin
+##### password : admin
+###### it a CRUD application you can create read update and delete a bill for a company from the back-end or front-end.
+###### companies CRUD actions can be done from the back-end only. 
 ## Available Scripts
 
 In the project directory, you can run:
