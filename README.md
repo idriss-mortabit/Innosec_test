@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+for the demo you can check http://innoscripta.herokuapp.com/
+the back-end link http://innoscripta.herokuapp.com/admin/
+username : admin
+password : admin
 ## Available Scripts
 
 In the project directory, you can run:
